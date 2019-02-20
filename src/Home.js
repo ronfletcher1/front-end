@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import {Link} from 'react-router-dom';
 
 class Home extends Component{
     constructor(){
@@ -31,7 +33,17 @@ class Home extends Component{
         })
     }
 
-    render(){   
+    render(){  
+        const taskArray = this.props.taskList.map((task)=>{
+            return (
+                <tr key={task.id}>
+                    <td>{task.taskName} - {moment(task.taskDate).format('MM-DD-YYYY')}</td>
+                    <td><button className="btn red">Delete</button></td>
+                    <td><Link to={"/edit/"+task.id}>
+                    <button className="btn blue">Edit</button></Link></td>
+                </tr>
+            )
+        })
         return(
             <div className="to-do-app">
                         
@@ -58,7 +70,7 @@ class Home extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        {taskArray}
                     </tbody>
                 </table>
             </div>
